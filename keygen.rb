@@ -64,7 +64,7 @@ def get_d(phi, e) # Get D: 1<D<PHI; such that (E)(D) % phi == 1;
       break
     end
     #if d.instance_of?(Fixnum) || d.instance_of?(Bignum)
-    if(d % 1 == 0)
+    if(d % 1 == 0.0)
       return d
     end
     i = i + 1
