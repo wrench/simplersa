@@ -6,6 +6,17 @@
 # Simple Example: http://www.di-mgt.com.au/rsa_alg.html#proof
 
 # Generate primes from 1000 to 9999 and return as a list.
+
+if !ARGV[0]
+  puts 'Usage: ruby RSA.rb <message_to_encrypt> OR ruby RSA.rb <message_to_encrypt> --verbose'
+  exit
+end
+message = ARGV[0]
+@@verbose = false
+if ARGV[1] == '--verbose'
+  @@verbose = true
+end
+
 def gen_primes(min, max)
   primes = []
   state = Numeric.new
@@ -117,8 +128,14 @@ def encrypt_message(msg, n, e)
     bytes << m
   end
 #  puts bytes
+  count = 0
   bytes.each do |b|
+    enc = encrypt(b, n, e)
+    if @@verbose
+      puts "Char: #{bytes[count]} - Cipher: #{enc}"
+    end
     ciphers << encrypt(b, n, e)
+    count = count + 1
   end
 #  puts ciphers
   return ciphers
@@ -146,10 +163,10 @@ d = get_d(phi, e); puts "d: #{d}"
 #m = 7; puts "m: #{m}" ## Using 7 as the "message" that should come out the same (m1)
 #c = encrypt(m, n, e); puts "c: #{c}"
 #m1 = decrypt(c, n, d); puts "m1: #{m1}"
-message = "heya!"
+puts "Message to Encrypt is: #{message}\nEncrypting..."
 message_enc = encrypt_message(message, n, e)
 message_dec = decrypt_message(message_enc, n, d)
-puts message
+puts "Decrypted message is:  #{message_dec}"
 #
 ## Below just tests to make sure that the encrypt and decrypt methods are working properly. WORKS!! (w/ simple example)
 ##p = 11; q = 3; n = 33; phi = 20; e = 3; d = 7
