@@ -29,11 +29,7 @@ def get_prime(prime_list) # Choose a random prime from the list of generated pri
 end
 
 def coprime?(e, phi) # Determine whether 2 numbers are coprime.
-  if gcd(e, phi) == 1
-    return true
-  else 
-    return false
-  end
+  return gcd(e, phi) == 1
 end
 
 def gcd(a, b) # Find the GCD of two numbers.
